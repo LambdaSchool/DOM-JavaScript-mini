@@ -30,7 +30,6 @@ class TabLink {
   };
 
   select() {
-    console.log(this.tabItem);
     this.element.classList.add('Tabs__link-selected');
     this.tabItem.select();
   }
