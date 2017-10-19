@@ -30,3 +30,6 @@ class Tabs {
   getTab(data) {return this.element.querySelector(`.Tabs__item[data-tab="${data}"]`)}
   init() {this.activeLink.select()}
 }
+
+let tabs = document.querySelectorAll(".Tabs");
+tabs = Array.from(tabs).map(tabs => new Tabs(tabs));
