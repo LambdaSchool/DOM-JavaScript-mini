@@ -6,7 +6,9 @@
 @import './components/List/List.css';
 
 body {
+        /* what is border-box? */
 	box-sizing: border-box;
+        /* why a min width of 300px? */
 	min-width: 300px;
 	margin: 0;
 }
