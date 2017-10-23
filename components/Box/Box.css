@@ -4,14 +4,11 @@
 	margin-bottom: 15px;
 }
 
-.Box--gray {
-  background-color: gray;
-}
-
-.Box--blue {
-  background-color: blue;
-}
-
-.Box--green {
-  background-color: green;
+.Box__description {
+  box-sizing: border-box;
+  width: 25%;
+  height: 300px;
+  padding: 20px;
+  margin: 0;
+  display: inline-block;
 }
