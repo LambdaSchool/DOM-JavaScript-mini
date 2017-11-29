@@ -38,6 +38,8 @@ class TabLink {
   deselect() {
     // deselect this link
     // deselect the associated tab
+    this.element.classList.remove('Tabs__link-selected');
+    this.tabItem.deselect();
   }
 }
 
@@ -54,11 +56,14 @@ class Tabs {
 
   init() {
     // select the first link and tab upon ititialization
+    this.activeLink.select();
   }
 
   updateActive(newActive) {
     // deselect the old active link
     // assign the new active link
+    this.activeLink.deselect();
+    this.activeLink = newActive;
   }
 
   getTab(data) {
