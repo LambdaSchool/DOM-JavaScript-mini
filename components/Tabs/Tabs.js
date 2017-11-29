@@ -7,6 +7,7 @@ class TabItem {
 
   select() {
     // should use classList
+    this.element.classList.add('Tabs__item-selected');
   }
 
   deselect() {
