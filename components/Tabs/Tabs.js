@@ -7,15 +7,14 @@ class TabItem {
 
   select() {
     // should use classList
-    return this.element.querySelectorAll(".Tabs");
+    return this.element.classList.add("Tabs__item-selected");
   }
 
   deselect() {
     // should use classList
-    return this.element.select().value ="";
-  }
+    return this.element.classList.remove("Tabs__item-selected");
 }
-
+}
 class TabLink {
   constructor(element, parent) {
     this.element = element;// attach dom element to object
@@ -32,13 +31,16 @@ class TabLink {
   select() {
     // select this link
    // select the associated tab
-    return this.element.querySelector(`.Tabs__link[data-tab='${data}']`);
+    return this.element.classList.add('Tabs__link-selected');
+    this.tabItem.select();
   }
 
   deselect() {
     // deselect this link
     // deselect the associated tab
-   return this.element.select().value ="";
+    return this.element.classList.remove('Tabs__link-selected');
+    this.tabItem.deselect();
+  // return this.element.select().value =""; <---don't do this!
   }
 }
 
@@ -49,20 +51,20 @@ class Tabs {
     this.links = Array.from(this.links).map((link) => {
       return new TabLink(link, this);
     });
-    this.activeLink = this.links[0];
     this.init();
   }
 
   init() {
-    
+    this.activeLink = this.links[0];
+    this.activeLink.select();
+
   }
 
   updateActive(newActive) {
     // deselect the old active link
-    let tempLink = this.activeLink;
+    this.activeLink.deselect();
     // assign the new active link
     this.activeLink = newActive;
-    newActive = tempLink;
   }
 
   getTab(data) {
