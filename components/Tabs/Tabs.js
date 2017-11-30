@@ -7,14 +7,14 @@ class TabItem {
 
   select() {
     // should use classList
-    this.element.classList.remove('Tabs__link');
+    this.element.classList.remove('Tabs__item');
     this.element.classList.add('Tabs__item-selected');
   }
 
   deselect() {
     // should use classList
     this.element.classList.remove('Tabs__item-selected');
-    this.element.classList.add('Tabs__link');
+    this.element.classList.add('Tabs__item');
   }
 }
 
@@ -61,15 +61,15 @@ class Tabs {
 
   init() {
     // select the first link and tab upon ititialization
-    this.activeLink.element.classList.add('Tabs__link-selected');
-    this.activeLink.tabItem.select();      
+   this.activeLink.select();      
   }
 
   updateActive(newActive) {
     // deselect the old active link
     // assign the new active link
-    this.activeLink.tabItem.deselect();
+    this.activeLink.deselect();
     this.activeLink = newActive;
+    this.activeLink.select();
   }
 
   getTab(data) {
