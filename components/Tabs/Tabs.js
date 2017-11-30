@@ -7,14 +7,14 @@ class TabItem {
 
   select() {
     // should use classList
-    this.element.classList.remove('Tabs__item');
+    this.element.classList.remove('Tabs__link');
     this.element.classList.add('Tabs__item-selected');
   }
 
   deselect() {
     // should use classList
     this.element.classList.remove('Tabs__item-selected');
-    this.element.classList.add('Tabs__item');
+    this.element.classList.add('Tabs__link');
   }
 }
 
