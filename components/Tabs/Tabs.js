@@ -56,15 +56,20 @@ class Tabs {
 
   init() {
     // select the first link and tab upon ititialization
+    this.activeLink.select();
   }
 
   updateActive(newActive) {
     // deselect the old active link
     // assign the new active link
+    this.activeLink.deselect();
+    this.activeLink = newActive;
   }
 
   getTab(data) {
     // use the tab item classname and the data attribute to select the proper tab
+    const tabItems = this.element.querySelectorAll('.Tabs__item');
+    return tabItems[data - 1];
   }
 
 }
