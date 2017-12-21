@@ -31,14 +31,14 @@ class TabLink {
   select() {
     // select this link
     // select the associated tab
-    this.element.classList.add(".Tabs__link-selected");
+    this.element.classList.add("Tabs__link-selected");
     this.tabItem.select();
   }
 
   deselect() {
     // deselect this link
     // deselect the associated tab
-    this.element.classList.remove(".Tabs__link-selected")
+    this.element.classList.remove("Tabs__link-selected")
     this.tabItem.deselect();
   }
 }
