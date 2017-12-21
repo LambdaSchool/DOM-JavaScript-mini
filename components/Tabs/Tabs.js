@@ -57,7 +57,6 @@ class Tabs {
   init() {
     // select the first link and tab upon ititialization
     this.activeLink.select();
-    this.activeLink.tabItem.select();
   }
 
   updateActive(newActive) {
