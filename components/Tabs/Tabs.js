@@ -18,7 +18,7 @@ class TabLink {
     this.element = element;// attach dom element to object
     this.tabs = parent;// attach parent to object
     
-    this.tabItem = parent.getTab(this.element);
+    this.tabItem = this.tabs.getTab(this.element.dataset.tab);
     // assign this to the associated tab using the parent's "getTab" method by passing it the correct data
     // reassign this.tabItem to be a new instance of TabItem, passing it this.tabItem
 
@@ -62,7 +62,7 @@ class Tabs {
   }
 
   getTab(data) {
-    data.TabItem.select();
+    return this.element.querySelector(`.Tabs__item[data-tab="${data}"]`);
     // use the tab item classname and the data attribute to select the proper tab
   }
 }
