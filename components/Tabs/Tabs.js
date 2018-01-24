@@ -1,7 +1,7 @@
 
 class TabItem {
   constructor(element) {
-    // attach dom element to object. Example in Tabs class
+    this.element = element.querySelectorAll('.Tabs__item');
   }
 
   select() {
@@ -15,9 +15,9 @@ class TabItem {
 
 class TabLink {
   constructor(element, parent) {
-    this.element;// attach dom element to object
-    this.tabs;// attach parent to object
-    this.tabItem;// assign this to the associated tab using the parent's "getTab" method by passing it the correct data
+    this.element// attach dom element to object
+    this.tabs = parent;// attach parent to object
+    this.tabItem = ;// assign this to the associated tab using the parent's "getTab" method by passing it the correct data
     // reassign this.tabItem to be a new instance of TabItem, passing it this.tabItem
     this.element.addEventListener('click', () => {
       this.tabs.updateActive(this);
@@ -38,7 +38,7 @@ class TabLink {
 
 class Tabs {
   constructor(element) {
-    this.element = element;// attaches the dom node to the object as "this.element"
+    this.element = element.querySelectorAll('.Tabs');// attaches the dom node to the object as "this.element"
     this.links = element.querySelectorAll(".Tabs__link");
     this.links = Array.from(this.links).map((link) => {
       return new TabLink(link, this);
@@ -57,7 +57,7 @@ class Tabs {
   }
 
   getTab(data) {
-    // use the tab item classname and the data attribute to select the proper tab
+    return document.querySelector('.Tabs_link.// use the tab item classname and the data attribute to select the proper tab
   }
 
 }
