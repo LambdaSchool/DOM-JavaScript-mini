@@ -23,7 +23,7 @@ class TabLink {
     this.tabItem = parent.getTab(this.element.dataset.tab);// assign this to the associated tab using the parent's "getTab" method by passing it the correct data
     this.tabItem = new TabItem(this.tabItem);// reassign this.tabItem to be a new instance of TabItem, passing it this.tabItem
     this.element.addEventListener('click', () => {
-      //e.stopPropogation(); // event occurance bubbles up the tree
+      //event.stopPropogation(); // event occurance bubbles up the tree
       this.tabs.updateActive(this);
       this.select();
     });
