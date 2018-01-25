@@ -1,6 +1,7 @@
 .List {
   left: 0;
   margin: 20px 0;
+  user-select: none;
 }
 
 .List__item {
