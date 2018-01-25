@@ -1,26 +1,23 @@
-
 class TabItem {
   constructor(element) {
-    this.element;
+    this.element = element;
   }
 
   select() {
-    this.element.classList.remove('.Tabs__link');
-    this.element.classList.add('.Tabs__link-selected');// should use classList
+    this.element.classList.add('Tabs__item-selected');// should use classList
   }
 
   deselect() {
-    this.element.classList.remove('.Tabs__link-selected');
-    this.element.classList.add('.Tabs__link');// should use classList
+    this.element.classList.remove('Tabs__item-selected');// should use classList
   }
 }
 
 class TabLink {
   constructor(element, parent) {
-    this.element// attach dom element to object
+    this.element = element;// attach dom element to object
     this.tabs = parent;// attach parent to object
-    this.tabItem = parent.getTab();// assign this to the associated tab using the parent's "getTab" method by passing it the correct data
-    this.tabItem = new TabItem(this.TabItem);// reassign this.tabItem to be a new instance of TabItem, passing it this.tabItem
+    this.tabItem = parent.getTab(this.element.dataset.tab);// assign this to the associated tab using the parent's "getTab" method by passing it the correct data
+    this.tabItem = new TabItem(this.tabItem);// reassign this.tabItem to be a new instance of TabItem, passing it this.tabItem
     this.element.addEventListener('click', () => {
       this.tabs.updateActive(this);
       this.select();
@@ -28,13 +25,13 @@ class TabLink {
   };
 
   select() {
-    this.element.classList.remove('.Tabs__item');// select this link
-    this.element.classList.add('.Tabs__item-selected');// select the associated tab
+    this.element.classList.add('Tabs__link-selected');// select the associated tab
+    this.tabItem.select();
   }
 
   deselect() {
-    this.element.classList.remove('.Tabs__item-selected');// select this link
-    this.element.classList.add('.Tabs__item');// deselect the associated tab
+    this.element.classList.remove('Tabs__link-selected');// select this link
+    this.tabItem.deselect();
   }
 }
 
@@ -50,20 +47,21 @@ class Tabs {
   }
 
   init() {
-    this.element.classList.add('.Tabs__link-selected');
-    this.element.classList.add('.Tabs__item-selected');// select the first link and tab upon ititialization
+    this.activeLink.select();
   }
 
   updateActive(newActive) {
-    this.links.deslect(this.activeLink)// deselect the old active link
-    this.links.select(newActive)// assign the new active link
+    this.activeLink.deselect();// deselect the old active link
+    this.activeLink = newActive;// assign the new active link
   }
 
   getTab(data) {
-    return this.element.querySelector('.Tabs_item[data-tab = ${data}]');// use the tab item classname and the data attribute to select the proper tab
+    return this.element.querySelector(`.Tabs__item[data-tab="${data}"]`);// use the tab item classname and the data attribute to select the proper tab
   }
 
 }
 
 let tabs = document.querySelectorAll(".Tabs");
 tabs = Array.from(tabs).map(tabs => new Tabs(tabs));
+
+
