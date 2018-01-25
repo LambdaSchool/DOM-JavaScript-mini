@@ -21,12 +21,13 @@ class TabLink {
   constructor(element, parent) {
     this.element = element;// attach dom element to object
     this.tabs = parent;// attach parent to object
-    this.tabItem = parent.getTab(this.element.dataset.tab);// assign this to the associated tab using the parent's "getTab" method by passing it the correct data
-    this.tabItem = new TabItem(this.tabItem); // reassign this.tabItem to be a new instance of TabItem, passing it this.tabItem
+    // assign this to the associated tab using the parent's "getTab" method by passing it the correct data
+    this.tabItem = new TabItem(this.getContentTab(this.tabs, element)); // reassign this.tabItem to be a new instance of TabItem, passing it this.tabItem
     this.element.addEventListener('click', () => {
       this.tabs.updateActive(this);
       this.select();
     });
+    
   };
 
   select() {
@@ -42,11 +43,22 @@ class TabLink {
     this.element.className = "List__item Tabs__link";
     this.tabItem.deselect();
   }
+  
+  getContentTab(tabs, element) {
+    for (let i = 0; i <= tabs.contentTabs.length; i++) {
+          if(typeof tabs.contentTabs[i].dataset !== 'undefined')
+              if(tabs.contentTabs[i].dataset.tab === element.dataset.tab) 
+                  return this.tabs.contentTabs[i];
+    }
+    return false;
+  }
+
 }
 
 class Tabs {
   constructor(element) {
     this.element = element; // attaches the dom node to the object as "this.element"
+    this.contentTabs = element.querySelectorAll(".Tabs__item");
     this.links = element.querySelectorAll(".Tabs__link");
     this.links = Array.from(this.links).map((link) => {
       return new TabLink(link, this);
@@ -66,12 +78,6 @@ class Tabs {
     this.activeLink.deselect();
     this.activeLink = newActive;
   }
-
-  getTab(data) {
-    // use the tab item classname and the data attribute to select the proper tab
-    return this.element.querySelector(`.Tabs__item[data-tab="${data}"]`);
-  }
-
 }
 
 let tabs = document.querySelectorAll(".Tabs");
