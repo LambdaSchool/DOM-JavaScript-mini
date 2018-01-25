@@ -7,12 +7,14 @@ class TabItem {
 
   select() {
     // should use classList
-    domObj.classList.toggle('Tabs__item--selected');
+    this.domObj.classList.toggle('Tabs__item-selected');
+    this.domObj.classList.toggle('Tabs__item');
   }
 
   deselect() {
     // should use classList
-    domObj.classList.toggle('Tabs__item--selected');
+    this.domObj.classList.toggle(' Tabs__item-selected');
+    this.domObj.classList.toggle('Tabs__item');
   }
 }
 
@@ -20,7 +22,7 @@ class TabLink {
   constructor(element, parent) {
     this.element = element;// attach dom element to object
     this.tabs = parent;// attach parent to object
-    this.tabItem = parent.getTab(element.dataset.tab);// assign this to the associated tab using the parent's "getTab" method by passing it the correct data
+    this.tabItem = parent.getTab(this.element.dataset.tab);// assign this to the associated tab using the parent's "getTab" method by passing it the correct data
     this.tabItem = new TabItem(this.tabItem);// reassign this.tabItem to be a new instance of TabItem, passing it this.tabItem
     this.element.addEventListener('click', () => {
       this.tabs.updateActive(this);
@@ -30,16 +32,16 @@ class TabLink {
 
   select() {
     // select this link
-    this.classList.add('Tabs__link--selected');
     // select the associated tab
-    parent.focus();
+    this.element.classList.add('Tabs__link-selected');
+    this.tabItem.select();
   }
 
   deselect() {
     // deselect this link
-    this.classList.remove('Tabs__link--selected');
+    this.element.classList.remove('Tabs__link-selected');
     // deselect the associated tab
-
+    this.tabItem.deselect();
   }
 }
 
@@ -56,13 +58,12 @@ class Tabs {
 
   init() {
     // select the first link and tab upon ititialization
-    this.activeLink.focus();
-    this.getTab(0).focus();
-
+    this.activeLink.select();
   }
 
   updateActive(newActive) {
     // deselect the old active link
+    //this.activeLink.deselect();
     // assign the new active link
     this.activeLink = newActive;
   }
