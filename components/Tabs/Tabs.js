@@ -15,13 +15,9 @@ class TabItem {
 }
 
 class TabLink {
-  constructor(element, parent) {
+  constructor(element) {
     this.element = element; // attach dom element to object
-    this.parent = parent;// attach parent to object
-    this.element.addEventListener('click', () => {
-    this.parent.updateActive(this.element.dataset.tab);
-    this.select();
-    });
+    this.element.addEventListener('click', (event) => {});
   };
 
   select() {
@@ -38,7 +34,10 @@ class TabLink {
 class Tabs {
   constructor(element) {
     this.element = element;// attaches the dom node to the object as "this.element"
-
+    this.element.addEventListener('click', (event) => {
+      this.updateActive(event.target.dataset.tab);
+      event.stopPropagation();
+    });
     // retrieve link nodes
     this.links = element.querySelectorAll(".Tabs__link");
     //** return an array of link object
