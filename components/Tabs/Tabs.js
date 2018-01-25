@@ -69,7 +69,6 @@ class Tabs {
     // use the tab item classname and the data attribute to select the proper tab
     return this.element.querySelector(`.Tabs__item[data-tab="${data}"]`);
   }
-
 }
 
 let tabs = document.querySelectorAll(".Tabs");
