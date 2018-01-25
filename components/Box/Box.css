@@ -10,8 +10,22 @@
 
 .Box--blue {
   background-color: blue;
+  color: white;
 }
 
 .Box--green {
   background-color: green;
+}
+
+.Box--red {
+  background-color: red;
+}
+
+.Box--orange {
+  background-color: orange;
+}
+
+.Box--purple {
+  background-color: purple;
+  color: white;
 }
