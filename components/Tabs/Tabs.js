@@ -8,10 +8,12 @@ class TabItem {
 
   select() {
     // should use classList
+    this.classList.add("Tabs__item-selected")
   }
 
   deselect() {
     // should use classList
+    this.classList.remove("Tabs__item-selected")
   }
 }
 
@@ -19,7 +21,7 @@ class TabLink {
   constructor(element, parent) {
     this.element = element; // attach dom element to object
     this.tabs = parent; // attach parent to object
-    this.tabItem = this.tabs.getTab(element.dataset.tab); // assign this to the associated tab using the parent's "getTab" method by passing it the correct data
+    this.tabItem = this.tabs.getTab(this.element.dataset.tab); // assign this to the associated tab using the parent's "getTab" method by passing it the correct data
     this.tabItem = new TabItem(this.tabItem); // reassign this.tabItem to be a new instance of TabItem, passing it this.tabItem
     this.element.addEventListener('click', () => {
       this.tabs.updateActive(this);
@@ -29,12 +31,16 @@ class TabLink {
 
   select() {
     // select this link
+    this.element.classList.add("Tabs__link-selected");
     // select the associated tab
+    this.tabItem.select();
   }
 
   deselect() {
     // deselect this link
+    this.element.classList.remove("Tabs_link-selected");
     // deselect the associated tab
+    this.tabItem.deselect();
   }
 }
 
@@ -51,11 +57,15 @@ class Tabs {
 
   init() {
     // select the first link and tab upon ititialization
+    this.activeLink.select();
+    this.activeLink.tabItem.select();
   }
 
   updateActive(newActive) {
     // deselect the old active link
+    this.activeLink.deselect();
     // assign the new active link
+    newActive.select();
   }
 
   getTab(data) {
