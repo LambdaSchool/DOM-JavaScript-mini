@@ -17,7 +17,6 @@ class TabItem {
 class TabLink {
   constructor(element) {
     this.element = element; // attach dom element to object
-    this.element.addEventListener('click', (event) => {});
   };
 
   select() {
@@ -67,13 +66,15 @@ class Tabs {
 
   updateActive(index) {
     // update active link
-    this.activeLink.deselect();
-    this.links[index-1].select();
-    this.activeLink = this.links[index-1];
-    // update active tab item
-    this.activeItem.deselect();
-    this.tabItems[index-1].select();
-    this.activeItem = this.tabItems[index-1];
+    if(index){
+      this.activeLink.deselect();
+      this.links[index-1].select();
+      this.activeLink = this.links[index-1];
+      // update active tab item
+      this.activeItem.deselect();
+      this.tabItems[index-1].select();
+      this.activeItem = this.tabItems[index-1];
+      }
   }
 }
 
