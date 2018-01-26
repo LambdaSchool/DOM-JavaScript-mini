@@ -21,11 +21,19 @@ class TabLink {
     this.element = element;// attach dom element to object
     this.tabs = parent;// attach parent to object
     this.data = this.element.dataset.tab;
+<<<<<<< HEAD
     this.tabItem = parent.getTab(this.element.dataset.tab);
     this.tabItem = new TabItem(this.tabItem);
 
     this.element.addEventListener('click', () => {
       //event.stopPropogation();
+=======
+    this.tabItem = this.tabs.getTab(this.data);
+    this.tabItem = new TabItem(this.tabItem);
+
+    this.element.addEventListener('click', (event) => {
+      event.stopPropogation();
+>>>>>>> master
       this.tabs.updateActive(this);
       this.select();
     });
@@ -57,7 +65,12 @@ class Tabs {
   }
 
   init() {
+<<<<<<< HEAD
     this.activeLink.select();
+=======
+    this.activeLink = this.links[0];
+    this.links[0].select();
+>>>>>>> master
     // select the first link and tab upon ititialization
   }
 
@@ -65,11 +78,19 @@ class Tabs {
     // deselect the old active link
     this.activeLink.deselect();
     // assign the new active link
+<<<<<<< HEAD
     this.activeLink = newActive;
   }
 
   getTab(data) {
     return this.element.querySelector(`.Tabs__item[data-tab="${data}"]`);
+=======
+    this.activeLink.newActive;
+  }
+
+  getTab(data) {
+    return this.element.querySelector(`.Tabs__item[data-tab = "${data}"]`);
+>>>>>>> master
     // use the tab item classname and the data attribute to select the proper tab
   }
 
