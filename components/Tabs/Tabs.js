@@ -41,31 +41,38 @@ class Tabs {
     this.links = Array.from(this.links).map((link) => {
       return new TabLink(link);
     });
-    this.links.forEach((link) => { // give each link its own tabItem (replacing line 25 of original)
-      link.tabItem = this.getTab(link.element.dataset.tab); // replace line 23
-      link.tabItem = new TabItem(link.tabItem); // replace line 25
-      link.element.addEventListener('click', () => { // replace event listener from 26-29
-        this.updateActive(link);
-        link.select();
-        link.tabItem.select(); // replace line 28
-      });
+    this.items = this.element.querySelectorAll(".Tabs__item");
+    this.items = Array.from(this.items).map((item) => {
+      return new TabItem(item);
+    });
+    this.element.addEventListener('click', (event) => {
+      if (event.target.dataset.tab) {
+        let idNumber = event.target.dataset.tab;
+        let currentItem = this.items[idNumber - 1];
+        let currentLink = this.links[idNumber - 1];
+        this.updateActive(currentLink, currentItem);
+        currentLink.select();
+        currentItem.select();
+      }
     });
     this.activeLink = this.links[0];
+    this.activeItem = this.items[0];
     this.init();
   }
 
   init() {
     // select the first link and tab upon ititialization
     this.activeLink.select();
-    this.activeLink.tabItem.select();  //need for replacing line 28 as well
+    this.activeItem.select();  //need for replacing line 28 as well
   }
 
-  updateActive(newActive) {
-    // deselect the old active link
+  updateActive(newActiveLink, newActiveItem) {
+    // deselect the old active link + item
     this.activeLink.deselect();
-    this.activeLink.tabItem.deselect(); // replace line 34
+    this.activeItem.deselect(); // replace line 34
     // assign the new active link
-    this.activeLink = newActive;
+    this.activeLink = newActiveLink;
+    this.activeItem = newActiveItem;
   }
 
   getTab(data) {
