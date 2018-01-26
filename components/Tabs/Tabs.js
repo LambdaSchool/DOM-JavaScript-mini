@@ -25,14 +25,12 @@ class TabLink {
     // select this link
     this.element.classList.add('Tabs__link-selected')
     // select the associated tab
-    this.tabItem.select();
   }
 
   deselect() {
     // deselect this link
     this.element.classList.remove('Tabs__link-selected');
     // deselect the associated tab
-    this.tabItem.deselect();
   }
 }
 
@@ -49,6 +47,7 @@ class Tabs {
       link.element.addEventListener('click', () => { // replace event listener from 26-29
         this.updateActive(link);
         link.select();
+        link.tabItem.select(); // replace line 28
       });
     });
     this.activeLink = this.links[0];
@@ -58,11 +57,13 @@ class Tabs {
   init() {
     // select the first link and tab upon ititialization
     this.activeLink.select();
+    this.activeLink.tabItem.select();  //need for replacing line 28 as well
   }
 
   updateActive(newActive) {
     // deselect the old active link
     this.activeLink.deselect();
+    this.activeLink.tabItem.deselect(); // replace line 34
     // assign the new active link
     this.activeLink = newActive;
   }
