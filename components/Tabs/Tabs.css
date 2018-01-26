@@ -4,6 +4,7 @@
 
 .Tabs__item-selected {
   display: block;
+  background-color: pink
 }
 
 .Tabs__link {
