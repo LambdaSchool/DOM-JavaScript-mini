@@ -8,5 +8,7 @@
 body {
 	box-sizing: border-box;
 	min-width: 300px;
-	margin: 0;
+	margin: 25px;
+	background-color: #c7cbd9;
+	box-shadow: 3px 3px 5px 6px #324376;
 }

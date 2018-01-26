@@ -1,17 +1,26 @@
+.Box 
+{
+  border-radius: 10px;
+}
+
 .Box__title {
 	font-size: 1.5em;
 	font-weight: bold;
-	margin-bottom: 15px;
+  margin-bottom: 15px;
+  padding: 0;
 }
 
-.Box--gray {
-  background-color: gray;
+.Box--yellow {
+  background-color: #f5dd90;
+  padding: 15px;
 }
 
-.Box--blue {
-  background-color: blue;
+.Box--orange {
+  background-color: #f68e5f;
+  padding: 15px;
 }
 
-.Box--green {
-  background-color: green;
+.Box--red {
+  background-color: #f76c5e;
+  padding: 15px;
 }
