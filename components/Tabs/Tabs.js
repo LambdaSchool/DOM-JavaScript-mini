@@ -1,66 +1,48 @@
-
-class TabItem {
-  constructor(element) {
-    // attach dom element to object. Example in Tabs class
-  }
-
-  select() {
-    // should use classList
-  }
-
-  deselect() {
-    // should use classList
-  }
-}
-
-class TabLink {
-  constructor(element, parent) {
-    this.element;// attach dom element to object
-    this.tabs;// attach parent to object
-    this.tabItem;// assign this to the associated tab using the parent's "getTab" method by passing it the correct data
-    // reassign this.tabItem to be a new instance of TabItem, passing it this.tabItem
-    this.element.addEventListener('click', () => {
-      this.tabs.updateActive(this);
-      this.select();
-    });
-  };
-
-  select() {
-    // select this link
-    // select the associated tab
-  }
-
-  deselect() {
-    // deselect this link
-    // deselect the associated tab
-  }
-}
-
-class Tabs {
-  constructor(element) {
-    this.element = element;// attaches the dom node to the object as "this.element"
-    this.links = element.querySelectorAll(".Tabs__link");
-    this.links = Array.from(this.links).map((link) => {
-      return new TabLink(link, this);
-    });
-    this.activeLink = this.links[0];
-    this.init();
-  }
-
-  init() {
-    // select the first link and tab upon ititialization
-  }
-
-  updateActive(newActive) {
-    // deselect the old active link
-    // assign the new active link
-  }
-
-  getTab(data) {
-    // use the tab item classname and the data attribute to select the proper tab
-  }
-
-}
-
 let tabs = document.querySelectorAll(".Tabs");
-tabs = Array.from(tabs).map(tabs => new Tabs(tabs));
+// factory function
+const Tabs = function (element) {
+   // retrieve links and items node list
+   const links = element.querySelectorAll('.Tabs__link');
+   const items = element.querySelectorAll('.Tabs__item');
+
+   // make first link and item active on page load
+   links[0].classList.add('Tabs__link-selected');
+   items[0].classList.add('Tabs__item-selected');
+
+   // add click event to parent node element
+   element.addEventListener('click', (event) => {
+      // on click event, update the active link and item
+      tabs.updateActive(event.target.dataset.tab);
+      event.stopPropagation();
+   });
+
+   // return tabs object
+   return {
+   // object properties
+      element: element,
+      links: links,
+      items: items,
+      activeLink: links[0],
+      activeItem: items[0],
+
+      // handle updating the active link and item
+      updateActive: (index) => {
+         if(index){
+            // remove class from active link and item
+            tabs.activeLink.classList.remove('Tabs__link-selected');
+            tabs.activeItem.classList.remove('Tabs__item-selected');
+
+            // add class to active link and item
+            tabs.links[index-1].classList.add('Tabs__link-selected');
+            tabs.items[index-1].classList.add('Tabs__item-selected');
+
+            // re-assign active link and item
+            tabs.activeLink = tabs.links[index-1];
+            tabs.activeItem = tabs.items[index-1];
+         }
+      }
+   }
+}
+
+// create tabs object from parent node
+tabs = Tabs(tabs[0]);
