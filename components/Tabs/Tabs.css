@@ -10,10 +10,13 @@
   box-sizing: border-box;
   padding: 10px 15px;
   margin: 10px;
-  background-color: gray;
+  background-color: #324376;
+  color: ghostwhite;
+  border-radius: 5px;
 }
 
 .Tabs__link-selected {
-  background-color: white;
-  border: solid 1px gray;
+  background-color: #586ba4;
+  border: solid 1px #324376;
+  border-radius: 5px;
 }
