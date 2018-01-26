@@ -1,10 +1,4 @@
-.Tabs__item {
-  display: none;
-}
 
-.Tabs__item-selected {
-  display: block;
-}
 
 .Tabs__link {
   box-sizing: border-box;
@@ -16,4 +10,14 @@
 .Tabs__link-selected {
   background-color: white;
   border: solid 1px gray;
+}
+
+
+
+.Tabs__item {
+  display: none;
+}
+
+.Tabs__item-selected {
+  display: block;
 }
