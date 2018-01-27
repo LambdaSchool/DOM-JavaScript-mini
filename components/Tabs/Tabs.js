@@ -1,66 +1,67 @@
-class TabItem {
-  constructor(element) {
-    this.element = element;
-  }
-
-  select() {
+const TabItemProto = (element) => {
+  const select = () => {
     this.element.classList.add("Tabs__item-selected");
   }
 
-  deselect() {
+  const deselect = () => {
     this.element.classList.remove("Tabs__item-selected");  
   }
+
+  this.element = element;
+  return this;
 }
 
-class TabLink {
-  constructor(element, parent) {
-    this.element = element;// attach dom element to object
-    this.tabs = parent;// attach parent to object
-    this.tabItem = this.tabs.getTab(element.dataset);// assign this to the associated tab using the parent's "getTab" method by passing it the correct data
-    // reassign this.tabItem to be a new instance of TabItem, passing it this.tabItem
-    this.tabItem = new TabItem(this.tabItem);
-    this.element.addEventListener('click', () => {
-      this.tabs.updateActive(this);
-    });
-  };
+const TabItem = element => Object.create(TabItemProto(element));
 
-  select() {
+const TabLinkProto = (element) => {
+  this.select = () => {
     this.element.classList.add("Tabs__link-selected");
     this.tabItem.select();
   }
 
-  deselect() {
+  this.deselect = () => {
     this.element.classList.remove("Tabs__link-selected");
     this.tabItem.deselect();
   }
+
+  this.getTab = (data) => {
+    return this.element.parentNode.parentNode.querySelector(`.Tabs__item[data-tab="${data}"]`);
+  }
+
+  this.element = element;// attach dom element to object
+  this.tabItem = this.getTab(element.dataset.tab);
+  // reassign this.tabItem to be a new instance of TabItem, passing it this.tabItem
+  this.tabItem = TabItem(this.tabItem);
+  this.activeLink = this.links[0];
+  return this;
 }
 
-class Tabs {
-  constructor(element) {
-    this.element = element;// attaches the dom node to the object as "this.element"
-    this.links = element.querySelectorAll(".Tabs__link");
-    this.links = Array.from(this.links).map((link) => {
-      return new TabLink(link, this);
-    });
-    this.init();
-  }
+const TabLink = element => Object.create(TabLinkProto(element));
 
-  init() {
-    this.updateActive(this.links[0]);
-  }
-
-  updateActive(newActive) {
-    this.links.forEach((link) => {
-      if (link !== newActive) link.deselect();
-    });
+const TabsProto = (element) => {
+  this.updateActive = (newActive) => {
+    this.activeLink.deselect();
     this.activeLink = newActive;
-    newActive.select();
   }
 
-  getTab(data) {
-    return Array.from(this.element.querySelectorAll(".Tabs__item")).find(item => item.dataset.tab === data.tab);
+  this.init = () => {
+    this.select(this.activeLink);
   }
+
+  this.element = element;// attaches the dom node to the object as "this.element"
+  this.links = element.querySelectorAll(".Tabs__link");
+  this.links = Array.from(this.links).map((link) => {
+    const linkObj = TabLink(link, this);
+    linkObj.element.addEventListener('click', () => {
+      this.updateActive(linkObj);
+    });
+    return linkObj;
+  });
+  this.init();
+  return this;
 }
+
+const Tabs = (element) => Object.create(TabsProto(element));
 
 let tabs = document.querySelectorAll(".Tabs");
-tabs = Array.from(tabs).map(tabs => new Tabs(tabs));
+tabs = Array.from(tabs).map(tabs => Tabs(tabs));
