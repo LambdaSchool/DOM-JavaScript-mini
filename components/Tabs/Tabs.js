@@ -3,8 +3,6 @@ const getTab = (data) => {
 };
 
 const TabItemProto = (element) => ({
-  element,
-
   select: () => {
     element.classList.add("Tabs__item-selected");
   },
