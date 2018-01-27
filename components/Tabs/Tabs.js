@@ -5,11 +5,11 @@ const getTab = (data) => {
 const TabItemProto = (element) => ({
   element,
 
-  select: function() {
+  select: () => {
     element.classList.add("Tabs__item-selected");
   },
 
-  deselect: function() {
+  deselect: () => {
     element.classList.remove("Tabs__item-selected");  
   },
 });
@@ -49,9 +49,9 @@ const TabsProto = (element) => ({
     });
   },
 
-  links: Array.from(element.querySelectorAll(".Tabs__link")).map(function(link) {
+  links: Array.from(element.querySelectorAll(".Tabs__link")).map((link) => {
     const linkObj = TabLink(link);
-    linkObj.element.addEventListener('click', function() {
+    linkObj.element.addEventListener('click', () => {
       tabs.updateActive(linkObj);
     });
     return linkObj;
@@ -62,7 +62,7 @@ const TabsProto = (element) => ({
   },
 });
 
-const Tabs = (element) => Object.create(TabsProto(element));
+const Tabs = element => Object.create(TabsProto(element));
 
 let tabs = Tabs(document.querySelector(".Tabs"));
 tabs.init();
