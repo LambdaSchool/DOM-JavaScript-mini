@@ -1,6 +1,78 @@
 // to test file:///C:/Users/Eileen/DOM-JavaScript-mini/index.html
+// file includes DOM-JavaScript-Mini, refactoring with parent  
 
- class TabItem {
+const getTab = (data) => {  
+	return document.querySelector(`.Tabs__item[data-tab="${data}"]`);
+};
+
+const TabItemProto = (element) => ({
+    select: () => {
+    element.classList.add("Tabs__item-selected");
+  },
+
+  deselect: () => {
+    element.classList.remove("Tabs__item-selected");  
+  },
+});
+
+const TabItem = element => Object.create(TabItemProto(element));
+
+const TabLinkProto = (element) => ({
+  element,
+
+  select: function() {
+    element.classList.add("Tabs__link-selected");
+    this.tabItem.select();
+  },
+
+  deselect: function() {
+    element.classList.remove("Tabs__link-selected");
+    this.tabItem.deselect();
+  },
+
+  tabItem: TabItem(getTab(element.dataset.tab)),
+});
+
+const TabLink = element => Object.create(TabLinkProto(element));
+
+const TabsProto = (element) => ({
+  element,
+
+  tabs: this,
+
+  updateActive: function(newActive) {
+    this.links.forEach((link) => {
+      if (link.element === newActive.element) {
+        link.select();
+      } else {
+        link.deselect();
+      }
+   
+		});
+
+  },
+
+  links: Array.from(element.querySelectorAll(".Tabs__link")).map((link) => {
+    const linkObj = TabLink(link);
+    linkObj.element.addEventListener('click', () => {
+      tabs.updateActive(linkObj);
+    });
+
+    return linkObj;
+ }),
+
+  init: function() {
+    this.links[0].select();
+  },
+
+});
+
+const Tabs = element => Object.create(TabsProto(element));
+
+let tabs = Tabs(document.querySelector(".Tabs"));
+tabs.init();
+
+/* class TabItem {
   constructor(element) {
     // attach dom element to object. Example in Tabs class
 		this.element = element;
@@ -29,9 +101,9 @@ class TabLink {
      return this.element.parentNode.parentNode.querySelector(`.Tabs__item[data-tab="${data}"]`); // parentNode is being called twice because in the original function
 		                                                          // this.element referred to the tabs element on the DOM (div that contains a list of all tab link elements)
 		                                                         // in the refactoring here it refers to the tabLink element  
-    }
+    }*/
 
-/*class TabLink {
+/*class TabLink {   // DOM-JavaScript-Mini
   constructor(element, parent) {
     this.element = element;  // attach dom element to object
 		this.tabs = parent;     //  attach parent to object
@@ -43,7 +115,7 @@ class TabLink {
    });
  }; */
 
-  select() {
+/*  select() {
     // select this link
     // select the associated tab
 		this.element.classList.add('Tabs__link-selected');
@@ -72,9 +144,9 @@ class Tabs {
     });
     this.activeLink = this.links[0];
     this.init();
-  }
+  } */
 	
-	/*class Tabs {
+	/*class Tabs {   // DOM-JavaScript-Mini
   constructor(element) {
     this.element = element;// attaches the dom node to the object as "this.element"
     this.links = element.querySelectorAll(".Tabs__link");
@@ -84,7 +156,7 @@ class Tabs {
     this.init();
   }*/
 
-  init() {
+ /* init() {
     this.updateActive(this.links[0]);
   }
 	
@@ -98,14 +170,14 @@ class Tabs {
     // assign the new active link
 		this.activeLink.deselect();
 		this.activeLink = newActive;
-  }
+  } */
 
-/*  getTab(data) {
+/*  getTab(data) {  // DOM-JavaScript-Mini
     // use the tab item classname and the data attribute to select the proper tab
     return this.element.querySelector(`.Tabs__item[data-tab="${data}"]`);
   } */  
 
-} 
+//} 
 
-let tabs = document.querySelectorAll(".Tabs");
-tabs = Array.from(tabs).map(tabs => new Tabs(tabs)); 
+//let tabs = document.querySelectorAll(".Tabs");
+//tabs = Array.from(tabs).map(tabs => new Tabs(tabs)); 
