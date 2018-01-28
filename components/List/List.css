@@ -6,3 +6,10 @@
 .List__item {
   display: inline;
 }
+
+@media (max-width: 600px) {
+  .List {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
