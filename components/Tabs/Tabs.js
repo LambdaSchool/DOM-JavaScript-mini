@@ -48,7 +48,7 @@ class Tabs {
   }
 
   init() {
-    // select the first link and tab upon ititialization
+    // select the first link and tab upon initialization
   }
 
   updateActive(newActive) {
