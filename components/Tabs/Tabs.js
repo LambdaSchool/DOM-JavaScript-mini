@@ -1,15 +1,15 @@
 
 class TabItem {
   constructor(element) {
-    // attach dom element to object. Example in Tabs class
+    this.element = element;
   }
 
   select() {
-    // should use classList
+    this.element.classList.add("Tabs__item--selected");
   }
 
   deselect() {
-    // should use classList
+    this.element.classList.remove('Tabs__item--selected')
   }
 }
 
@@ -26,13 +26,11 @@ class TabLink {
   };
 
   select() {
-    // select this link
-    // select the associated tab
+    this.element.classList.add("Tabs__link--selected");
   }
 
   deselect() {
-    // deselect this link
-    // deselect the associated tab
+    this.element.classList.remove("Tabs__link--selected");
   }
 }
 
